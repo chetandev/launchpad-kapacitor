@@ -15,6 +15,7 @@ async function send(body) {
         text: `[${params[0]} Alarm ${params[1]}-${params[2]} is ${params[0]} with metric ${params[3]}.toUpperCase() value is ${params[4]}`
     }, function(err, response) {
         if(err){
+        	console.log(err)
         	throw err
         }
 
@@ -23,3 +24,6 @@ async function send(body) {
 
     });
 }
+
+
+module.exports = send

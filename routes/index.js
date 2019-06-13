@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var slack = require('./slack')
+var slack = require('../slack')
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.send("app is working");

@@ -13,7 +13,7 @@ router.post('/relay', async function(req, res, next) {
 
     try {
         body = req.body
-        var result = await send(body)
+        var result = await slack.send(body)
         res.send(result);
     } catch (e) {
         res.send(e);

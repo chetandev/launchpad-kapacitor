@@ -9,9 +9,9 @@ async function send(body) {
     params = body.message.split('|')
 
     return slack.webhook({
-        channel: "#kapacitor-alarm",
+        channel: params[5],
         username: "bot",
-        icon_emoji: ":ghost:",
+        icon_emoji: ":heavy_exclamation_mark:",
         text: `[${params[0]}] Alarm ${params[1]}-${params[2]} is ${params[0]} with metric ${params[3].toUpperCase()} value is ${params[4]}`
     }, function(err, response) {
         if (err) {

@@ -12,7 +12,7 @@ async function send(body) {
 
     var options = {
         method: 'POST',
-        uri: webhookUri,
+        uri: params[6],
         simple: true,
         rejectUnauthorized: false,
         body: {
@@ -39,7 +39,6 @@ async function send(body) {
             }],
             "channel": params[5]
         },
-        json: true,
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
@@ -48,7 +47,7 @@ async function send(body) {
     return rp(options)
 }
 
-
+//'CRITICAL|TEST1|IAM|cpu|99.80|#kapacitor|webhookurl|dev440@gmail.com'
 
 
 module.exports = { send: send }

@@ -1,0 +1,49 @@
+# Official framework image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/node/tags/
+image: node:10.15.0-alpine
+
+# Pick zero or more services to be used on all builds.
+# Only needed when using a docker container to run your tests in.
+# Check out: http://docs.gitlab.com/ce/ci/docker/using_docker_images.html#what-is-a-service
+services:
+#  - mysql:latest
+#  - redis:latest
+#  - postgres:latest
+
+stages:
+  - test
+  - build
+
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+cache:
+  paths:
+  - node_modules/
+
+test_async:
+  stage: test
+  script:
+   - npm install
+
+
+  # artifacts:
+  #   paths:
+  #   - coverage
+
+
+# test_db:
+#   script:
+#    - npm install
+#    - node ./specs/start.js ./specs/db-postgres.spec.js
+
+build_docker_image:
+  stage: build   # build image only after test passed
+#  only: [master] # build and push images only for master branch commits
+  image: docker:git # use simply git docker image
+  services:
+    - docker:dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+    - docker build -t registry.gitlab.com/$CI_PROJECT_PATH . --build-arg branch=$CI_COMMIT_REF_SLUG
+    - docker tag registry.gitlab.com/$CI_PROJECT_PATH registry.gitlab.com/$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG
+    - docker push registry.gitlab.com/$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG

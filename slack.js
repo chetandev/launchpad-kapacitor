@@ -27,6 +27,12 @@ var rp = require('request-promise');
 
 async function send(body) {
 
+    var params = body.message.split('|')
+    var message = `[${params[0]}] Alarm ${params[1]}-${params[2]} is ${params[0]} with metric ${params[3].toUpperCase()} value is ${params[4]}`
+    var color = params[0]=="CRITICAL"?"#FF0000":"#36a64f"
+    var priority == params[0]=="CRITICAL"?"High":"Normal"
+
+
     var options = {
         method: 'POST',
         uri: webhookUri,
@@ -35,24 +41,24 @@ async function send(body) {
         body: {
             "attachments": [{
                 "fallback": "Required plain-text summary of the attachment.",
-                "color": "#36a64f",
-                "pretext": "Optional text that appears above the attachment block",
-                "author_name": "Bobby Tables",
-                "author_link": "http://flickr.com/bobby/",
-                "author_icon": "http://flickr.com/icons/bobby.jpg",
-                "title": "Slack API Documentation",
-                "title_link": "https://api.slack.com/",
-                "text": "Optional text that appears within the attachment",
+                "color": color,
+               
+                "author_name": "Launchpad-Kapacitor",
+                //"author_link": "http://flickr.com/bobby/",
+                //"author_icon": "http://flickr.com/icons/bobby.jpg",
+                "title": message,
+                //"title_link": "https://api.slack.com/",
+                //"text": "Optional text that appears within the attachment",
                 "fields": [{
                     "title": "Priority",
-                    "value": "High",
+                    "value": priority,
                     "short": false
                 }],
-                "image_url": "http://my-website.com/path/to/image.jpg",
-                "thumb_url": "http://example.com/path/to/thumb.png",
-                "footer": "Slack API",
-                "footer_icon": "https://platform.slack-edge.com/img/default_application_icon.png",
-                "ts": 123456789
+                //"image_url": "http://my-website.com/path/to/image.jpg",
+                //"thumb_url": "http://example.com/path/to/thumb.png",
+                //"footer": "Slack API",
+                //"footer_icon": "https://platform.slack-edge.com/img/default_application_icon.png",
+                //"ts": 123456789
             }],
             "channel": params[5]
         },

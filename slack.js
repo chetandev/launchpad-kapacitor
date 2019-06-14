@@ -30,7 +30,7 @@ async function send(body) {
     var params = body.message.split('|')
     var message = `[${params[0]}] Alarm ${params[1]}-${params[2]} is ${params[0]} with metric ${params[3].toUpperCase()} value is ${params[4]}`
     var color = params[0]=="CRITICAL"?"#FF0000":"#36a64f"
-    var priority == params[0]=="CRITICAL"?"High":"Normal"
+    var priority = params[0]=="CRITICAL"?"High":"Normal"
 
 
     var options = {

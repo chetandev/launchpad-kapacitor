@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
-    host: "10.142.240.27",
+    host: "smtp.bss.jio.com",
     port: 25,
     secure: false, // true for 465, false for other ports
     auth: {

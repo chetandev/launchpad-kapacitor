@@ -10,7 +10,7 @@ async function send(obj) {
             simple: true,
             rejectUnauthorized: false,
             json: true,
-            body: "{
+            body: {
             "attachments": [{
                 "fallback": "Required plain-text summary of the attachment.",
                 "color": obj.color,
@@ -32,7 +32,7 @@ async function send(obj) {
                 //"footer_icon": "https://platform.slack-edge.com/img/default_application_icon.png",
                 //"ts": 123456789
             }],
-            "channel": obj.channel
+            "channel": obj.channel,
             "username": "bot"
         },
         headers: {

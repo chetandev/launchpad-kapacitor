@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var slack = require('../slack')
+var email = require('../email')
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.send("app is working");
@@ -18,6 +19,7 @@ router.post('/relay', async function(req, res, next) {
         var params = body.message.split('|')
         var message = `[${params[0]}] Alarm ${params[1]}-${params[2]} is ${params[0]} with metric ${params[3].toUpperCase()} value is ${params[4]}`
         var webhookUrl = params[6]
+        var channel = params[5]
         var emailList = params[7]
         var serverId = params[8]
         var link = params[9]

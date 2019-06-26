@@ -7,8 +7,18 @@ let transporter = nodemailer.createTransport({
     port: 25,
     secure: false, // true for 465, false for other ports
     auth: {
+        type : "oauth2",
         user: "", // generated ethereal user
         pass: "" // generated ethereal password
+    }
+});
+
+
+transporter.verify(function(error, success) {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log("Server is ready to take our messages");
     }
 });
 

@@ -26,7 +26,9 @@ router.post('/relay', async function(req, res, next) {
         var color = params[0] == "CRITICAL" ? "#FF0000" : "#36a64f"
         var priority = params[0] == "CRITICAL" ? "High" : "Normal"
 
-        var result = await slack.send({
+
+
+        var slackResult = slack.send({
             "webhook_url": webhookUrl,
             "message": message,
             "color": color,
@@ -34,13 +36,15 @@ router.post('/relay', async function(req, res, next) {
             "channel": channel,
             "link": link
         })
-        var result = await email.send({
+        var emailResult = email.send({
             "email": emailList,
             "message": message,
             "color": color,
             "priority": priority,
             "link": link
         })
+
+        const result = [await slackResult, await emailResult];
         console.log(result)
         res.send(result);
 
